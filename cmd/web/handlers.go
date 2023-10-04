@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/felipedavid/contacts/internal/models"
@@ -24,9 +23,11 @@ func (app *application) contactsHandler(w http.ResponseWriter, r *http.Request) 
 	}
 
 	if err != nil {
-		app.ServerError(w)
+		app.ServerError(w, err)
 		return
 	}
 
-	fmt.Fprintf(w, "%v", contacts)
+	app.render(w, http.StatusOK, "contacts", &templateData{
+		Contacts: contacts,
+	})
 }

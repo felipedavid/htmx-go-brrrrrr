@@ -1,0 +1,23 @@
+{{define "title"}}Contacts{{end}}
+
+{{define "main"}}
+	<table>
+		<thead>
+			<tr>
+				<th>First</th>
+				<th>Last</th>
+				<th>Phone</th>
+				<th>Email</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{range .Contacts}}
+				<tr>
+					<td>{{.FirstName}}</td>
+					<td>{{.LastName}}</td>
+					<td>{{.Phone}}</td>
+					<td>{{.Email}}</td>
+				</tr>
+			{{end}}
+	</table>
+{{end}}

@@ -20,6 +20,7 @@ type config struct {
 }
 
 type application struct {
+	config config
 	models *models.Models
 }
 
@@ -50,6 +51,7 @@ func main() {
 
 	app := &application{
 		models: models.New(db),
+		config: cfg,
 	}
 
 	s := &http.Server{
