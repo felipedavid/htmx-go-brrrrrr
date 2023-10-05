@@ -6,6 +6,9 @@
 	<title>{{template "title" .}}</title>
 </head>
 <body>
+	{{with .Flash}}
+		<div class="flash">{{.}}</div>
+	{{end}}
 	{{template "main" .}} 
 </body>
 </html>

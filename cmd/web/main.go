@@ -7,7 +7,9 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"time"
 
+	"github.com/alexedwards/scs/v2"
 	"github.com/felipedavid/contacts/internal/models"
 
 	_ "modernc.org/sqlite"
@@ -20,8 +22,9 @@ type config struct {
 }
 
 type application struct {
-	config config
-	models *models.Models
+	config         config
+	models         *models.Models
+	sessionManager *scs.SessionManager
 }
 
 func main() {
@@ -49,9 +52,14 @@ func main() {
 		}
 	}
 
+	sessionManager := scs.New()
+	sessionManager.Lifetime = 24 * time.Hour
+	sessionManager.Cookie.Persist = true
+
 	app := &application{
-		models: models.New(db),
-		config: cfg,
+		models:         models.New(db),
+		config:         cfg,
+		sessionManager: sessionManager,
 	}
 
 	s := &http.Server{
