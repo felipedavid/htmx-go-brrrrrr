@@ -29,7 +29,7 @@ func (app *application) contactsHandler(w http.ResponseWriter, r *http.Request) 
 		}
 
 		app.render(w, http.StatusOK, "show", &templateData{
-			Contact: *contact,
+			Contact: contact,
 		})
 		return
 	}
@@ -76,31 +76,16 @@ func (app *application) newContactsHandler(w http.ResponseWriter, r *http.Reques
 
 		contact := &models.Contact{}
 
-		firstName := r.PostFormValue("first_name")
-		if firstName != "" {
-			contact.FirstName = &firstName
-		}
-
-		lastName := r.PostFormValue("last_name")
-		if lastName != "" {
-			contact.LastName = &lastName
-		}
-
-		email := r.PostFormValue("email")
-		if email != "" {
-			contact.Email = &email
-		}
-
-		phone := r.PostFormValue("phone")
-		if phone != "" {
-			contact.Phone = &phone
-		}
+		contact.FirstName = r.PostFormValue("first_name")
+		contact.LastName = r.PostFormValue("last_name")
+		contact.Email = r.PostFormValue("email")
+		contact.Phone = r.PostFormValue("phone")
 
 		v := validator.New()
 
 		if models.ValidateContact(v, contact); !v.Valid() {
 			app.render(w, http.StatusBadRequest, "new", &templateData{
-				Contact: *contact,
+				Contact: contact,
 				Errors:  v.Errors,
 			})
 			return
@@ -139,7 +124,7 @@ func (app *application) editContactsHandler(w http.ResponseWriter, r *http.Reque
 	switch r.Method {
 	case http.MethodGet:
 		app.render(w, http.StatusOK, "edit", &templateData{
-			Contact: *contact,
+			Contact: contact,
 		})
 	case http.MethodPost:
 		if err := r.ParseForm(); err != nil {
@@ -147,31 +132,16 @@ func (app *application) editContactsHandler(w http.ResponseWriter, r *http.Reque
 			return
 		}
 
-		firstName := r.PostFormValue("first_name")
-		if firstName != "" {
-			contact.FirstName = &firstName
-		}
-
-		lastName := r.PostFormValue("last_name")
-		if lastName != "" {
-			contact.LastName = &lastName
-		}
-
-		email := r.PostFormValue("email")
-		if email != "" {
-			contact.Email = &email
-		}
-
-		phone := r.PostFormValue("phone")
-		if phone != "" {
-			contact.Phone = &phone
-		}
+		contact.FirstName = r.PostFormValue("first_name")
+		contact.LastName = r.PostFormValue("last_name")
+		contact.Email = r.PostFormValue("email")
+		contact.Phone = r.PostFormValue("phone")
 
 		v := validator.New()
 
 		if models.ValidateContact(v, contact); !v.Valid() {
-			app.render(w, http.StatusBadRequest, "edit", &templateData{
-				Contact: *contact,
+			app.render(w, http.StatusOK, "edit", &templateData{
+				Contact: contact,
 				Errors:  v.Errors,
 			})
 			return
@@ -191,7 +161,7 @@ func (app *application) editContactsHandler(w http.ResponseWriter, r *http.Reque
 
 func (app *application) deleteContactsHandler(w http.ResponseWriter, r *http.Request) {
 	time.Sleep(app.config.artificialDelay)
-	if r.Method != http.MethodPost {
+	if r.Method != http.MethodDelete {
 		app.MethodNotAllowed(w)
 		return
 	}

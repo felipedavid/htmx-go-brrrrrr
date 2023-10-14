@@ -7,18 +7,18 @@ import (
 )
 
 type Contact struct {
-	ID        int     `json:"id"`
-	FirstName *string `json:"first_name"`
-	LastName  *string `json:"last_name"`
-	Phone     *string `json:"phone"`
-	Email     *string `json:"email"`
+	ID        int    `json:"id"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Phone     string `json:"phone"`
+	Email     string `json:"email"`
 }
 
 func ValidateContact(v *validator.Validator, contact *Contact) {
-	v.Check(contact.FirstName != nil, "first_name", "First Name is required")
-	v.Check(contact.LastName != nil, "last_name", "Last Name is required")
-	v.Check(contact.Email != nil, "email", "Email is required")
-	v.Check(contact.Phone != nil, "phone", "Phone is required")
+	v.Check(contact.FirstName != "", "first_name", "First Name is required")
+	v.Check(contact.LastName != "", "last_name", "Last Name is required")
+	v.Check(contact.Email != "", "email", "Email is required")
+	v.Check(contact.Phone != "", "phone", "Phone is required")
 }
 
 type ContactModel struct {
