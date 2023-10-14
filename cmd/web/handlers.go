@@ -10,12 +10,12 @@ import (
 )
 
 func (app *application) indexView(w http.ResponseWriter, r *http.Request) {
-	time.Sleep(2 * time.Second)
+	time.Sleep(app.config.artificialDelay)
 	http.Redirect(w, r, "/contacts", http.StatusSeeOther)
 }
 
 func (app *application) contactsHandler(w http.ResponseWriter, r *http.Request) {
-	time.Sleep(2 * time.Second)
+	time.Sleep(app.config.artificialDelay)
 
 	queries := r.URL.Query()
 
@@ -52,10 +52,11 @@ func (app *application) contactsHandler(w http.ResponseWriter, r *http.Request) 
 			return
 		}
 
-		flashMessage := app.sessionManager.GetString(r.Context(), "flash")
+		flashMessage := app.sessionManager.PopString(r.Context(), "flash")
 		app.render(w, http.StatusOK, "contacts", &templateData{
 			Contacts: contacts,
 			Flash:    flashMessage,
+			Search:   searchTerm,
 		})
 	default:
 		app.MethodNotAllowed(w)
@@ -63,7 +64,7 @@ func (app *application) contactsHandler(w http.ResponseWriter, r *http.Request) 
 }
 
 func (app *application) newContactsHandler(w http.ResponseWriter, r *http.Request) {
-	time.Sleep(2 * time.Second)
+	time.Sleep(app.config.artificialDelay)
 	switch r.Method {
 	case http.MethodGet:
 		app.render(w, http.StatusOK, "new", &templateData{})
@@ -118,7 +119,7 @@ func (app *application) newContactsHandler(w http.ResponseWriter, r *http.Reques
 }
 
 func (app *application) editContactsHandler(w http.ResponseWriter, r *http.Request) {
-	time.Sleep(2 * time.Second)
+	time.Sleep(app.config.artificialDelay)
 	queries := r.URL.Query()
 
 	id, err := strconv.Atoi(queries.Get("id"))
@@ -189,7 +190,7 @@ func (app *application) editContactsHandler(w http.ResponseWriter, r *http.Reque
 }
 
 func (app *application) deleteContactsHandler(w http.ResponseWriter, r *http.Request) {
-	time.Sleep(2 * time.Second)
+	time.Sleep(app.config.artificialDelay)
 	if r.Method != http.MethodPost {
 		app.MethodNotAllowed(w)
 		return

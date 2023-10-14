@@ -16,9 +16,10 @@ import (
 )
 
 type config struct {
-	port          int
-	dsn           string
-	runMigrations bool
+	artificialDelay time.Duration
+	port            int
+	dsn             string
+	runMigrations   bool
 }
 
 type application struct {
@@ -33,6 +34,7 @@ func main() {
 	flag.IntVar(&cfg.port, "port", 8080, "HTTP Server port")
 	flag.StringVar(&cfg.dsn, "dsn", "database.db", "Database Service Name")
 	flag.BoolVar(&cfg.runMigrations, "run-migrations", false, "Run database migrations")
+	flag.DurationVar(&cfg.artificialDelay, "artificial-delay", 0, "Artificial delay for testing purposes")
 	flag.Parse()
 
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))

@@ -1,6 +1,10 @@
 {{define "title"}}Contacts{{end}}
 
 {{define "main"}}
+	<form method="GET" action="/contacts">
+		<input type="text" name="q" placeholder="Search" value="{{.Search}}">
+		<input type="submit" value="Search">
+	</form>
 	<table>
 		<thead>
 			<tr>
