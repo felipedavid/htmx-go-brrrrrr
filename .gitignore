@@ -1,4 +1,4 @@
 *.db
 *.exe
 bin/
-*.idea
+.idea/
