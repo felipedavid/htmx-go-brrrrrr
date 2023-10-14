@@ -5,11 +5,13 @@
 	<meta charset="UTF-8">
 	<title>{{template "title" .}}</title>
 </head>
-<body>
+<body hx-boost="true">
 	{{with .Flash}}
 		<div class="flash">{{.}}</div>
 	{{end}}
-	{{template "main" .}} 
-</body>
+	{{template "main" .}}
+
+	<script src="https://unpkg.com/htmx.org@1.9.6"></script>
+</bodyh>
 </html>
 {{end}}
