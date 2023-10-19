@@ -4,6 +4,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{{template "title" .}}</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler-flags.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler-payments.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler-vendors.min.css">
 </head>
 <body hx-boost="true">
 	{{with .Flash}}
@@ -12,6 +16,7 @@
 	{{template "main" .}}
 
 	<script src="https://unpkg.com/htmx.org@1.9.6"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
 </bodyh>
 </html>
 {{end}}

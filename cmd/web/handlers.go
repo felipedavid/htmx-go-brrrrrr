@@ -67,7 +67,7 @@ func (app *application) newContactsHandler(w http.ResponseWriter, r *http.Reques
 	time.Sleep(app.config.artificialDelay)
 	switch r.Method {
 	case http.MethodGet:
-		app.render(w, http.StatusOK, "new", &templateData{})
+		app.render(w, http.StatusOK, "new", &templateData{Contact: &models.Contact{}})
 	case http.MethodPost:
 		if err := r.ParseForm(); err != nil {
 			app.ServerError(w, err)
