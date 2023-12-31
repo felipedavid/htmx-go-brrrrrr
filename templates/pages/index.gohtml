@@ -3,5 +3,35 @@
 {{end}}
 
 {{define "content"}}
-    This is the index page
+    <form method="get" class="tool-bar">
+        <label for="search">Search Term</label>
+        <input id="search" type="search" name="q" value="{{.SearchQuery}}"/>
+        <input type="submit" value="Search" />
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>First</th>
+                <th>Last</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .Contacts}}
+                <tr>
+                    <td>{{ .FirstName }}</td>
+                    <td>{{ .LastName }}</td>
+                    <td>{{ .Phone }}</td>
+                    <td>{{ .Email }}</td>
+                    <td>
+                        <a href="/contacts/{{.ID}}/edit">Edit</a>
+                        <a href="/contacts/{{.ID}}">View</a>
+                    </td>
+                </tr>
+            {{end}}
+        </tbody>
+    </table>
 {{end}}
