@@ -3,4 +3,18 @@
 {{end}}
 
 {{define "content"}}
+    {{with .Contact}}
+        <fieldset>
+            <h1>{{.FirstName}} {{.LastName}}</h1>
+
+            <div>
+                <div>Phone: {{.Phone}}</div>
+                <div>Email: {{.Email}}</div>
+            </div>
+            <p>
+                <a href="/contacts/{{.ID}}/edit">Edit</a>
+                <a href="/contacts">Back</a>
+            </p>
+        </fieldset>
+    {{end}}
 {{end}}

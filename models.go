@@ -29,7 +29,29 @@ func (c *Contact) Valid() bool {
 	NotEmpty("Phone", c.Phone, errors)
 	NotEmpty("Email", c.Email, errors)
 
-	return len(errors) > 0
+	return len(errors) == 0
+}
+
+func getContact(id int) (Contact, error) {
+	query := `
+		SELECT id, fname, lname, phone, email from contacts WHERE id = $1
+	`
+
+	row := db.QueryRow(query, id)
+
+	contact := Contact{}
+	err := row.Scan(
+		&contact.ID,
+		&contact.FirstName,
+		&contact.LastName,
+		&contact.Phone,
+		&contact.Email,
+	)
+	if err != nil {
+		return contact, err
+	}
+
+	return contact, nil
 }
 
 func getContacts(searchTerm string) ([]Contact, error) {
@@ -68,4 +90,43 @@ func getContacts(searchTerm string) ([]Contact, error) {
 	}
 
 	return contacts, nil
+}
+
+func updateContact(contact *Contact) error {
+	query := `
+		UPDATE contacts SET fname = $1, lname = $2, phone = $3, email = $4 WHERE id = $5
+	`
+
+	_, err := db.Exec(query, contact.FirstName, contact.LastName, contact.Phone, contact.Email, contact.ID)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func deleteContact(id int) error {
+	query := `
+		DELETE FROM contacts WHERE id = $1
+	`
+
+	_, err := db.Exec(query, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func insertContact(contact *Contact) error {
+	query := `
+		INSERT INTO contacts (fname, lname, phone, email) VALUES ($1, $2, $3, $4)
+	`
+
+	_, err := db.Exec(query, contact.FirstName, contact.LastName, contact.Phone, contact.Email)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

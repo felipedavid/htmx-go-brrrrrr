@@ -5,12 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="091f1439-a3d0-4004-8662-54c1da0f4a01" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/pages/contact.gohtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/pages/new_contact.gohtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/pages/edit_contact.gohtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/handlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models.go" beforeDir="false" afterPath="$PROJECT_DIR$/models.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/pages/contact.gohtml" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pages/contact.gohtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/pages/index.gohtml" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pages/index.gohtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/pages/new_contact.gohtml" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pages/new_contact.gohtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,16 +96,5 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/handlers.go</url>
-          <line>67</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
