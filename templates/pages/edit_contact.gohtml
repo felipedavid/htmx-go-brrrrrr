@@ -8,7 +8,17 @@
             <legend>Contact Values</legend>
             <p>
                 <label for="email">Email</label>
-                <input name="Email" id="email" type="email" placeholder="Email" value="{{.Email}}">
+                <input
+                    hx-get="/validate/contacts/email"
+                    hx-target="next .error"
+                    hx-trigger="keyup changed delay:500ms"
+                    hx-swap="innerHTML"
+                    name="Email"
+                    id="email"
+                    type="email"
+                    placeholder="Email"
+                    value="{{.Email}}"
+                >
                 <span class="error">{{.ValidationErrors.Email}}</span>
             </p>
             <p>
@@ -32,8 +42,6 @@
     <a>
         <a href="/contacts">Back</a>
     </a>
-    <form action="/contacts/{{.ID}}/delete" method="POST">
-        <button>Delete</button>
-    </form>
+    <button hx-delete="/contacts/{{.ID}}" hx-push-url="true" hx-target="body" hx-confirm="are you sure?">Delete</button>
     {{end}}
 {{end}}

@@ -41,7 +41,8 @@ func defineRoutes() http.Handler {
 	mux.HandleFunc("GET /contacts/{id}/view", renderContactPageHandler)
 	mux.HandleFunc("GET /contacts/{id}/edit", renderEditContactPageHandler)
 	mux.HandleFunc("POST /contacts/{id}/edit", processEditContactForm)
-	mux.HandleFunc("POST /contacts/{id}/delete", deleteContactHandler)
+	mux.HandleFunc("DELETE /contacts/{id}", deleteContactHandler)
+	mux.HandleFunc("GET /validate/contacts/{field}", validateContactInformationHandler)
 
 	return mux
 }
@@ -174,7 +175,7 @@ func processEditContactForm(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func renderAddContactPageHandler(w http.ResponseWriter, r *http.Request) {
+func renderAddContactPageHandler(w http.ResponseWriter, _ *http.Request) {
 	err := renderPage(w, "new_contact", map[string]any{
 		"Contact": Contact{},
 	})
@@ -225,5 +226,19 @@ func renderEditContactPageHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		serverErrorResponse(w)
 		return
+	}
+}
+
+// validateContactInformationHandler will validate a field passed to him
+// based on the field name set in the clean url, and the contents of the
+// request body.
+func validateContactInformationHandler(w http.ResponseWriter, r *http.Request) {
+	fieldName := r.PathValue("field")
+	switch fieldName {
+	case "email":
+		email := r.FormValue("Email")
+		if len(email) == 0 {
+			_, _ = w.Write([]byte("cannot be empty"))
+		}
 	}
 }
